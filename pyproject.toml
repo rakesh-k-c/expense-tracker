@@ -7,7 +7,9 @@ authors = [
     { name = "rakesh", email = "rp.code.rakesh@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "rich>=15.0.0",
+]
 
 [project.scripts]
 expense-tracker = "expense_tracker:main"
