@@ -15,12 +15,7 @@ def main():
         created_at=datetime.now(),
     )
 
-    data = [
-        asdict(transaction),
-        transaction.created_at.isoformat(sep=' '),
-    ]
-
-    print(data)
+    
 
 
 

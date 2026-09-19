@@ -16,7 +16,7 @@ class TransactionRepository:
         self.data_file = data_file
 
 
-    def load(self) -> list[Transaction]:
+    def load_transactions(self) -> list[Transaction]:
 
         if not self.data_file.exists():
             return []
@@ -33,9 +33,9 @@ class TransactionRepository:
 
         return transactions
 
-    def save(self, transaction: Transaction) -> None:
+    def save_transaction(self, transaction: Transaction) -> None:
 
-        transactions = self.load()
+        transactions = self.load_transactions()
         transactions.append(transaction)
 
         transactions_data = []
