@@ -16,8 +16,8 @@ from expense_tracker.utils.get_next_id import get_next_id
 console = Console()
 
 def main():
-    console.print("\n\tExpense Tracker", style="bold blue")
-    console.print("--------------------------------", style="bold blue")
+    console.print("\n\t\tExpense Tracker", style="bold blue")
+    console.print("-------------------------------------------------", style="bold blue")
 
 
     repo = TransactionRepository(TRANSACTIONS_FILE)
@@ -31,13 +31,13 @@ def main():
 
         curr_balance = Text(str(service.current_balance()), style="bold green")
         total_income = Text(str(service.get_total_income()), style="green")
-        total_expense = Text(str(service.get_total_expense()), style="red")
+        total_expense = Text.assemble(str(service.get_total_expense()), style="red")
 
-        console.print("----------------------------------------", style="dodger_blue1")
-        console.print(f"\tBALANCE : {curr_balance}", style="bold gray70")
+        console.print("-------------------------------------------------", style="dodger_blue1")
+        console.print(f"\t\tBALANCE : {curr_balance}", style="bold gray70")
         console.print(f"\nINCOME : {total_income}", style="green", end="")
-        console.print(f"\tEXPENSE : {total_expense}", style="red")
-        console.print("----------------------------------------", style="dodger_blue1")
+        console.print(f"\t\tEXPENSE : {total_expense}", style="red")
+        console.print("-------------------------------------------------", style="dodger_blue1")
 
 
 
