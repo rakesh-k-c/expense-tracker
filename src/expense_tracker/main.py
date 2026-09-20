@@ -9,6 +9,7 @@ from expense_tracker.models.transaction import Transaction
 from expense_tracker.repositories.transaction_repository import TransactionRepository
 from expense_tracker.services.transaction_service import TransactionService
 from expense_tracker.utils.validations import validate_choice
+from expense_tracker.utils.get_next_id import get_next_id
 
 console = Console()
 
@@ -16,14 +17,6 @@ def main():
     console.print("\n\tExpense Tracker", style="bold blue")
     console.print("--------------------------------", style="bold blue")
 
-    transaction = Transaction(
-        id=1,
-        type="expense",
-        amount=4440.0,
-        category="foot",
-        description="lunch",
-        created_at=datetime.now(),
-    )
 
     repo = TransactionRepository(TRANSACTIONS_FILE)
     service = TransactionService(repo)
@@ -39,7 +32,18 @@ def main():
 
         match choice:
             case 1:
-                print("1...")
+                transactions = service.get_transactions()
+
+                id = get_next_id(transactions)
+                name = input("Enter Name ")
+                amount = float(input("Enter Amount "))
+                category = input("Enter category (Food, Shopping, Home expense, rent) ")
+                description = input("Enter description (rent for august etc.) ")
+                created_at = datetime.now()
+
+                transaction = Transaction(id, name, amount, category, description, created_at)
+                service.add_transaction(transaction)
+
             case 2:
                 print("2....")
             case 'q':
