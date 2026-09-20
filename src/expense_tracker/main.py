@@ -25,6 +25,22 @@ def main():
 
 
     while True:
+
+        transactions = service.get_transactions()
+
+
+        curr_balance = Text(str(service.current_balance()), style="bold green")
+        total_income = Text(str(service.get_total_income()), style="green")
+        total_expense = Text(str(service.get_total_expense()), style="red")
+
+        console.print("----------------------------------------", style="dodger_blue1")
+        console.print(f"\tBALANCE : {curr_balance}", style="bold gray70")
+        console.print(f"\nINCOME : {total_income}", style="green", end="")
+        console.print(f"\tEXPENSE : {total_expense}", style="red")
+        console.print("----------------------------------------", style="dodger_blue1")
+
+
+
         console.print("\n[dodger_blue1][1]. Add transaction[/dodger_blue1]")
         console.print("[dodger_blue1][2]. Show all transactions[/dodger_blue1]")
         console.print("[dodger_blue1][3]. Press 'q' to quit[/dodger_blue1]")
@@ -35,8 +51,6 @@ def main():
         match choice:
             case 1:
                 # Adding Transactions
-                transactions = service.get_transactions()
-
                 id = get_next_id(transactions)
                 type = input("Enter Type ")
                 amount = float(input("Enter Amount "))
@@ -49,8 +63,6 @@ def main():
 
             case 2:
                 # Listing all transactions on console
-                transactions = service.get_transactions()
-
                 table_title = Text("List of transactions", style="bold dodger_blue1")
                 table = Table(title=table_title, style="bold gray50")
                 table.add_column("ID", style=" gray70")
