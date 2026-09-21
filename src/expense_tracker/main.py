@@ -42,6 +42,19 @@ def main():
         console.print("-------------------------------------------------", style="dodger_blue1")
 
 
+        """
+            [1] Add transaction
+            [2] Show all transactions
+            [3] Show incomes
+            [4] Show expenses
+            [5] Update transaction
+            [6] Delete transaction
+            [7] Search/filter transactions
+            [8] Monthly summary
+            [9] Quit
+        """
+
+
 
         console.print("\n[dodger_blue1][1]. Add transaction[/dodger_blue1]")
         console.print("[dodger_blue1][2]. Show all transactions[/dodger_blue1]")
