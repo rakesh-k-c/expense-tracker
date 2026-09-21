@@ -30,5 +30,13 @@
         "category": "salary",
         "description": "from my company",
         "created_at": "2026-09-20T11:03:24.857703"
+    },
+    {
+        "id": 5,
+        "type": "expense",
+        "amount": 125000.0,
+        "category": "shopping",
+        "description": "bought a bike",
+        "created_at": "2026-09-21T10:19:34.043444"
     }
 ]

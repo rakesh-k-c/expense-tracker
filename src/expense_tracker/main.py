@@ -10,8 +10,10 @@ from expense_tracker.config import TRANSACTIONS_FILE
 from expense_tracker.models.transaction import Transaction
 from expense_tracker.repositories.transaction_repository import TransactionRepository
 from expense_tracker.services.transaction_service import TransactionService
+
 from expense_tracker.utils.validations import validate_choice
 from expense_tracker.utils.get_next_id import get_next_id
+from expense_tracker.utils.print_transactions import show_transactions
 
 console = Console()
 
@@ -43,10 +45,12 @@ def main():
 
         console.print("\n[dodger_blue1][1]. Add transaction[/dodger_blue1]")
         console.print("[dodger_blue1][2]. Show all transactions[/dodger_blue1]")
-        console.print("[dodger_blue1][3]. Press 'q' to quit[/dodger_blue1]")
+        console.print("[dodger_blue1][3]. Show incomes [/dodger_blue1]")
+        console.print("[dodger_blue1][4]. Show expenses [/dodger_blue1]")
+        console.print("[dodger_blue1][q]. Press 'q' to quit[/dodger_blue1]")
 
         # min=1 and max=3 and also take 'q' for quit
-        choice = validate_choice(min=1, max=3)
+        choice = validate_choice(min=1, max=4)
 
         match choice:
             case 1:
@@ -62,34 +66,15 @@ def main():
                 service.add_transaction(transaction)
 
             case 2:
-                # Listing all transactions on console
-                table_title = Text("List of transactions", style="bold dodger_blue1")
-                table = Table(title=table_title, style="bold gray50")
-                table.add_column("ID", style=" gray70")
-                table.add_column("TYPE", style=" gray70")
-                table.add_column("AMOUNT", style=" gray70")
-                table.add_column("CATEGORY", style=" gray70")
-                table.add_column("DESCRIPTION", style=" gray70")
-                table.add_column("CREATED AT", style=" gray70")
+                show_transactions(transactions, "List of all Transactions", type="all")
+                
+            case 3:
+                income_transactions = service.get_income_transactions()
+                show_transactions(income_transactions, "Income Transactions", type="income")
 
-                for transaction in transactions:
-
-                    if transaction.type == "expense":
-                        text = Text.assemble(str(transaction.amount), style="red")
-                    elif transaction.type == "income":
-                        text = Text.assemble(str(transaction.amount), style="green")
-
-                    table.add_row(
-                        str(transaction.id), 
-                        str(transaction.type), 
-                        text,
-                        str(transaction.category),
-                        str(transaction.description),
-                        str(transaction.created_at),
-                    )
-
-                console.print(table)
-
+            case 4:
+                expense_transactions = service.get_expense_transactions()
+                show_transactions(expense_transactions, "Expense Transactions", type="expense")
 
             case 'q':
                 console.print("\n\tSee you soon!", style="bold dodger_blue1")

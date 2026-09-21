@@ -14,6 +14,22 @@ class TransactionService:
     def get_transactions(self) -> list[Transaction]:
         return self.repo.load_transactions()
 
+    def get_income_transactions(self) -> list[Transaction]:
+        all_transactions = self.repo.load_transactions()
+        income_transactions = []
+        for transaction in all_transactions:
+            if transaction.type == "income":
+                income_transactions.append(transaction)
+        return income_transactions
+
+    def get_expense_transactions(self) -> list[Transaction]:
+        all_transactions = self.repo.load_transactions()
+        expense_transactions = []
+        for transaction in all_transactions:
+            if transaction.type == "expense":
+                expense_transactions.append(transaction)
+        return expense_transactions
+
     def get_total_income(self) -> float:
         total_income = 0
         for transaction in self.get_transactions():
