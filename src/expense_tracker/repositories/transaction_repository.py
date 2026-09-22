@@ -27,8 +27,7 @@ class TransactionRepository:
         transactions = []
 
         for transaction in data:
-            transaction["created_at"] = datetime.fromisoformat(transaction["created_at"])       
-
+            transaction["created_at"] = datetime.fromisoformat(transaction["created_at"]) 
             transactions.append(Transaction(**transaction))
 
         return transactions
@@ -48,6 +47,30 @@ class TransactionRepository:
 
         with open(self.data_file, 'w', encoding='utf-8') as file:
             json.dump(transactions_data, file, indent=4, ensure_ascii=False)
+
+    def save_updated_transaction(self, updated_transactions: list[Transaction]):
+        transactions = []
+
+        for data in updated_transactions:
+            transaction_data = asdict(data)
+
+            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
+            transactions.append(transaction_data)
+
+        with open(self.data_file, 'w', encoding='utf-8') as file:
+            json.dump(transactions, file, indent=4, ensure_ascii=False)
+
+    def save_del_updated_transaction(self, deleted_transactions: list[Transaction]):
+        transactions = []
+        
+        for data in deleted_transactions:
+            transaction_data = asdict(data)
+
+            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
+            transactions.append(transaction_data)
+
+        with open(self.data_file, 'w', encoding='utf-8') as file:
+            json.dump(transactions, file, indent=4, ensure_ascii=False)
 
 
         

@@ -15,8 +15,8 @@ Phase 1 - Structure and Basic Implementation
     Add transaction         ✅
     List transactions       ✅
     Income/expense filtering✅
-    Update
-    Delete
+    Update                  ✅
+    Delete                  ✅
     Search/filter
     Summary/report
 

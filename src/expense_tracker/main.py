@@ -60,10 +60,12 @@ def main():
         console.print("[dodger_blue1][2]. Show all transactions[/dodger_blue1]")
         console.print("[dodger_blue1][3]. Show incomes [/dodger_blue1]")
         console.print("[dodger_blue1][4]. Show expenses [/dodger_blue1]")
+        console.print("[dodger_blue1][5]. Update Transaction [/dodger_blue1]")
+        console.print("[dodger_blue1][6]. Delete Transaction [/dodger_blue1]")
         console.print("[dodger_blue1][q]. Press 'q' to quit[/dodger_blue1]")
 
         # min=1 and max=3 and also take 'q' for quit
-        choice = validate_choice(min=1, max=4)
+        choice = validate_choice(min=1, max=6)
 
         match choice:
             case 1:
@@ -88,6 +90,23 @@ def main():
             case 4:
                 expense_transactions = service.get_expense_transactions()
                 show_transactions(expense_transactions, "Expense Transactions", type="expense")
+
+            case 5:
+                trans_id = int(input("Enter transaction id: "))
+                console.print("You can update only {amount, category, description}\n")
+                amount = float(input("Enter Amount "))
+                category = input("Enter category (Food, Shopping, Home expense, rent) ")
+                description = input("Enter description (rent for august etc.) ")
+                updated_transaction_details = {
+                    "amount" : amount,
+                    "category" : category,
+                    "description" : description
+                }
+                service.update_transaction(trans_id, **updated_transaction_details);
+
+            case 6:
+                trans_id = int(input("Enter transaction id: "))
+                service.delete_transaction(trans_id)
 
             case 'q':
                 console.print("\n\tSee you soon!", style="bold dodger_blue1")

@@ -48,3 +48,35 @@ class TransactionService:
 
     def current_balance(self) -> float:
         return self.get_total_income() - self.get_total_expense()
+
+
+    def update_transaction(self, id, **kwargs) -> None:
+        transactions = self.repo.load_transactions()
+        amount = kwargs["amount"]
+        category = kwargs["category"]
+        description = kwargs["description"]
+
+        for transaction in transactions:
+            if transaction.id == id:
+                transaction.amount = float(amount)
+                transaction.category = category
+                transaction.description = description
+
+                self.repo.save_updated_transaction(transactions)
+                return
+            
+
+        raise ValueError(f"Transactions with id : {id} is not found.")
+
+    def delete_transaction(self, id) -> None:
+        transactions = self.repo.load_transactions()
+
+        for transaction in transactions:
+            if transaction.id == id:
+                transactions.remove(transaction)
+                self.repo.save_del_updated_transaction(transactions)
+                return
+        raise ValueError(f"Transactions with id : {id} is not found.")
+
+        
+                
