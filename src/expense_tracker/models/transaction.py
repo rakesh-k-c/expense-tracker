@@ -2,13 +2,15 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from .enums import TransactionType, IncomeCategoryType, ExpenseCategoryType
+
 
 @dataclass
 class Transaction:
     id: int
-    type: str
+    type: TransactionType
     amount: float
-    category: str
+    category: IncomeCategoryType | ExpenseCategoryType
     description: str
     created_at: datetime
 

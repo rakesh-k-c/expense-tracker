@@ -78,5 +78,12 @@ class TransactionService:
                 return
         raise ValueError(f"Transactions with id : {id} is not found.")
 
+    def search_transaction_by_ID(self, id) -> Transaction:
+        for transaction in self.get_transactions():
+            if transaction.id == id:
+                return transaction
+
+        raise ValueError(f"Invalid input, id {id} is not found")
+
         
                 

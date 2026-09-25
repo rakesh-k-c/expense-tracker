@@ -1,26 +1,18 @@
 [
     {
-        "id": 3,
+        "id": 1,
         "type": "income",
-        "amount": 5000.0,
-        "category": "rent",
-        "description": "Sept rent from Ayush",
-        "created_at": "2026-09-20T10:59:10.851380"
-    },
-    {
-        "id": 4,
-        "type": "income",
-        "amount": 345000.0,
+        "amount": 250000.0,
         "category": "salary",
-        "description": "from my company",
-        "created_at": "2026-09-20T11:03:24.857703"
+        "description": "agust salary",
+        "created_at": "2026-09-25T10:36:28.963772"
     },
     {
-        "id": 5,
+        "id": 2,
         "type": "expense",
-        "amount": 125000.0,
-        "category": "shopping",
-        "description": "bought a bike",
-        "created_at": "2026-09-21T10:19:34.043444"
+        "amount": 400.0,
+        "category": "food",
+        "description": "chat masala with bada",
+        "created_at": "2026-09-25T10:59:25.613749"
     }
 ]

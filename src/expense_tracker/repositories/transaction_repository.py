@@ -7,6 +7,7 @@ from dataclasses import asdict
 from datetime import datetime
 
 from expense_tracker.models.transaction import Transaction
+from expense_tracker.models.enums import TransactionType, IncomeCategoryType, ExpenseCategoryType
 
 
 
@@ -22,13 +23,29 @@ class TransactionRepository:
             return []
 
         with open(self.data_file, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+            transactions_data = json.load(file)
 
         transactions = []
 
-        for transaction in data:
-            transaction["created_at"] = datetime.fromisoformat(transaction["created_at"]) 
-            transactions.append(Transaction(**transaction))
+        for data in transactions_data:
+
+            transaction_type = TransactionType(data["type"])
+
+            if transaction_type == TransactionType.INCOME:
+                category = IncomeCategoryType(data["category"])
+            else:
+                category = ExpenseCategoryType(data["category"])
+
+            transactions.append(
+                Transaction(
+                    id=data["id"],
+                    type=transaction_type,
+                    amount=data["amount"],
+                    category=category,
+                    description=data["description"],
+                    created_at=datetime.fromisoformat(data["created_at"])
+                )
+            )
 
         return transactions
 
@@ -42,6 +59,8 @@ class TransactionRepository:
         for data in transactions:
             transaction_data = asdict(data)
 
+            transaction_data["type"] = data.type.value
+            transaction_data["category"] = data.category.value
             transaction_data["created_at"] = transaction_data['created_at'].isoformat()
             transactions_data.append(transaction_data)
 
@@ -54,6 +73,8 @@ class TransactionRepository:
         for data in updated_transactions:
             transaction_data = asdict(data)
 
+            transaction_data["type"] = data.type.value
+            transaction_data["category"] = data.category.value
             transaction_data["created_at"] = transaction_data['created_at'].isoformat()
             transactions.append(transaction_data)
 
@@ -66,6 +87,8 @@ class TransactionRepository:
         for data in deleted_transactions:
             transaction_data = asdict(data)
 
+            transaction_data["type"] = data.type.value
+            transaction_data["category"] = data.category.value
             transaction_data["created_at"] = transaction_data['created_at'].isoformat()
             transactions.append(transaction_data)
 
