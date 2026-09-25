@@ -8,11 +8,11 @@
         "created_at": "2026-09-25T10:36:28.963772"
     },
     {
-        "id": 2,
-        "type": "expense",
-        "amount": 400.0,
-        "category": "food",
-        "description": "chat masala with bada",
-        "created_at": "2026-09-25T10:59:25.613749"
+        "id": 3,
+        "type": "income",
+        "amount": 4800.0,
+        "category": "rent",
+        "description": "august by raj",
+        "created_at": "2026-09-25T11:28:37.518341"
     }
 ]

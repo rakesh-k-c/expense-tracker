@@ -49,51 +49,36 @@ class TransactionRepository:
 
         return transactions
 
+
+    def write(self, transactions_data: list[Transaction]):
+        transactions = []
+        
+        for data in transactions_data:
+            transaction_data = asdict(data)
+
+            transaction_data["type"] = data.type.value
+            transaction_data["category"] = data.category.value
+            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
+            transactions.append(transaction_data)
+
+        with open(self.data_file, 'w', encoding='utf-8') as file:
+            json.dump(transactions, file, indent=4, ensure_ascii=False)
+
+
     def save_transaction(self, transaction: Transaction) -> None:
 
         transactions = self.load_transactions()
         transactions.append(transaction)
 
-        transactions_data = []
+        self.write(transactions)
 
-        for data in transactions:
-            transaction_data = asdict(data)
-
-            transaction_data["type"] = data.type.value
-            transaction_data["category"] = data.category.value
-            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
-            transactions_data.append(transaction_data)
-
-        with open(self.data_file, 'w', encoding='utf-8') as file:
-            json.dump(transactions_data, file, indent=4, ensure_ascii=False)
 
     def save_updated_transaction(self, updated_transactions: list[Transaction]):
-        transactions = []
+        self.write(updated_transactions)
 
-        for data in updated_transactions:
-            transaction_data = asdict(data)
-
-            transaction_data["type"] = data.type.value
-            transaction_data["category"] = data.category.value
-            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
-            transactions.append(transaction_data)
-
-        with open(self.data_file, 'w', encoding='utf-8') as file:
-            json.dump(transactions, file, indent=4, ensure_ascii=False)
 
     def save_del_updated_transaction(self, deleted_transactions: list[Transaction]):
-        transactions = []
-        
-        for data in deleted_transactions:
-            transaction_data = asdict(data)
-
-            transaction_data["type"] = data.type.value
-            transaction_data["category"] = data.category.value
-            transaction_data["created_at"] = transaction_data['created_at'].isoformat()
-            transactions.append(transaction_data)
-
-        with open(self.data_file, 'w', encoding='utf-8') as file:
-            json.dump(transactions, file, indent=4, ensure_ascii=False)
+        self.write(deleted_transactions)
 
 
         

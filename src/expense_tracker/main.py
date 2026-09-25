@@ -125,12 +125,55 @@ def main():
 
             case 5:
                 trans_id = int(input("Enter transaction id: "))
-                console.print("You can update only {amount, category, description}\n")
+
+                # Transaction Type
+                print("[1]. Income")
+                print("[2]. Expense")
+                transaction_type_choice = validate_choice(min=1, max=2)
+                match transaction_type_choice:
+                    case 1:
+                        transaction_type = TransactionType.INCOME
+                    case 2:
+                        transaction_type = TransactionType.EXPENSE
+
                 amount = float(input("Enter Amount "))
-                category = input("Enter category (Food, Shopping, Home expense, rent) ")
+
+                # Category
+                if transaction_type == TransactionType.INCOME:
+                    print("[1] Salary")
+                    print("[2] Rent")
+                    print("[3] Investment return")
+                    print("[4] Other")
+                    category_type_choice = validate_choice(min=1, max=4)
+                    match category_type_choice:
+                        case 1:
+                            category = IncomeCategoryType.SALARY
+                        case 2:
+                            category = IncomeCategoryType.RENT
+                        case 3:
+                            category = IncomeCategoryType.INVESTMENT_RETURN
+                        case 4:
+                            category = IncomeCategoryType.OTHER
+                else:
+                    print("[1] Food")
+                    print("[2] Fashion")
+                    print("[3] Household Accessories")
+                    print("[4] Other")
+                    category_type_choice = validate_choice(min=1, max=4)
+                    match category_type_choice:
+                        case 1:
+                            category = ExpenseCategoryType.FOOD
+                        case 2:
+                            category = ExpenseCategoryType.FASHION
+                        case 3:
+                            category = ExpenseCategoryType.HOUSEHOLD_ACCESSORIES
+                        case 4:
+                            category = ExpenseCategoryType.OTHER
+
                 description = input("Enter description (rent for august etc.) ")
                 updated_transaction_details = {
                     "amount" : amount,
+                    "type" : transaction_type,
                     "category" : category,
                     "description" : description
                 }

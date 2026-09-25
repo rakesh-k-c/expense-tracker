@@ -52,12 +52,14 @@ class TransactionService:
 
     def update_transaction(self, id, **kwargs) -> None:
         transactions = self.repo.load_transactions()
+        type = kwargs["type"]
         amount = kwargs["amount"]
         category = kwargs["category"]
         description = kwargs["description"]
 
         for transaction in transactions:
             if transaction.id == id:
+                transaction.type = type
                 transaction.amount = float(amount)
                 transaction.category = category
                 transaction.description = description
